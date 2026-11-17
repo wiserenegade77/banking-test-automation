@@ -39,3 +39,26 @@ def test_create_post(api_client):
     # print(api_post_response.headers)
     print(api_post_response.json())
 
+def test_update_post(api_client):
+    payload = {
+        "id": 1,
+        "title": "Updated API Automation",
+        "body": "Learning PUT requests",
+        "userId": 1
+    }
+
+    print("")
+    response_get = api_client.get("/posts/1")
+    print(response_get.json())
+
+    response= api_client.put("/posts/1",payload)
+    print(response.json())
+
+    assert response.status_code == 200
+
+    data = response.json()
+
+    assert data["id"] == 1
+    assert data["title"] == payload["title"]
+    assert data["body"] == payload["body"]
+    assert data["userId"] == payload["userId"]

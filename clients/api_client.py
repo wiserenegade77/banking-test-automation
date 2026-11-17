@@ -24,5 +24,15 @@ class APIClient:
         return response
 
 
+    def put(self,endpoint,payload):
+        url = f"{self.base_url}/{endpoint.lstrip('/')}"
+
+        return self.session.put(
+            url,
+            json=payload,
+            timeout=self.timeout
+            )
+
+
     def close(self):
         self.session.close()
