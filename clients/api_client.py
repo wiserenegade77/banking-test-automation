@@ -42,6 +42,14 @@ class APIClient:
             timeout = self.timeout
         )
 
+    def delete(self,endpoint):
+        url = f"{self.base_url}/{endpoint.lstrip('/')}"
+
+        return self.session.delete(
+            url,
+            timeout= self.timeout
+        )
+
 
     def close(self):
         self.session.close()

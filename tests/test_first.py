@@ -63,9 +63,8 @@ def test_update_post(api_client):
     assert data["body"] == payload["body"]
     assert data["userId"] == payload["userId"]
 
-def test_patch_post(api_client):
+def test_patch_data(api_client):
     payload = {
-        "title": "Updated through PATCH",
         "username": "Wiserenegade",
         'company': {'name': 'We Work', 'catchPhrase': 'Multi-layered client-server neural-net', 'bs': 'harness real-time e-markets'}
     }
@@ -79,3 +78,14 @@ def test_patch_post(api_client):
     api_patch_response = api_client.patch("/users/1",payload)
 
     print(api_patch_response.json())
+
+def test_delete_data(api_client):
+    api_response =api_client.get("/users/1")
+
+    print(api_response.json())
+
+    delete_response = api_client.delete("/users/1")
+    assert delete_response.status_code == 200
+
+    print("DELETE status:", delete_response.status_code)
+    print("DELETE body:", delete_response.text)
