@@ -11,8 +11,8 @@ from config import BASE_URL
     ]
 )
 def test_get_user(api_client,user_id,status):
-    api_response =api_client.get(f"/users/{user_id}")
 
+    api_response = api_client.request("GET",f"/users/{user_id}")
     # print(api_response.json())
     assert api_response.status_code == status
 
@@ -35,8 +35,9 @@ def test_create_post(api_client):
         "body": "Learning Python Requests",
         "userId": 1
     }
-    api_post_response = api_client.post("/posts",payload)
-    # print(api_post_response.headers)
+
+    api_post_response = api_client.request("POST","/posts",data= payload)
+    print(api_post_response)
     print(api_post_response.json())
 
 def test_update_post(api_client):
@@ -44,20 +45,19 @@ def test_update_post(api_client):
         "id": 1,
         "title": "Updated API Automation",
         "body": "Learning PUT requests",
-        "userId": 1
+        "userId": '1'
     }
 
     print("")
-    response_get = api_client.get("/posts/1")
+    response_get = api_client.request("GET","/posts/1")
     print(response_get.json())
 
-    response= api_client.put("/posts/1",payload)
+    response= api_client.request("PUT","/posts/1",data = payload)
     print(response.json())
 
     assert response.status_code == 200
 
     data = response.json()
-
     assert data["id"] == 1
     assert data["title"] == payload["title"]
     assert data["body"] == payload["body"]
@@ -69,22 +69,22 @@ def test_patch_data(api_client):
         'company': {'name': 'We Work', 'catchPhrase': 'Multi-layered client-server neural-net', 'bs': 'harness real-time e-markets'}
     }
 
-    api_response =api_client.get("/users/1")
+    api_response = api_client.request("GET","/users/1")
 
     print(api_response.json())
 
     print("***************************************************")
 
-    api_patch_response = api_client.patch("/users/1",payload)
+    api_patch_response = api_client.request("PATCH","/users/1",data= payload)
 
     print(api_patch_response.json())
 
 def test_delete_data(api_client):
-    api_response =api_client.get("/users/1")
+    api_response =  api_client.request("GET","/users/1")
 
     print(api_response.json())
 
-    delete_response = api_client.delete("/users/1")
+    delete_response = api_client.request("DELETE","/users/1")
     assert delete_response.status_code == 200
 
     print("DELETE status:", delete_response.status_code)

@@ -6,6 +6,20 @@ class APIClient:
         self.timeout = timeout
         self.session = session
 
+    def request(self,method,endpoint,**kwargs):
+        url = f"{self.base_url}/{endpoint.lstrip('/')}"
+
+        timeout = kwargs.pop("timeout",self.timeout)
+
+        response = self.session.request(
+            method = method.upper(),
+            url = url,
+            timeout = timeout,
+            **kwargs
+        )   
+
+        return response
+
     def get(self,endpoint):
         url = f"{self.base_url}/{endpoint.lstrip("/")}"
 
