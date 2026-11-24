@@ -62,3 +62,20 @@ def test_update_post(api_client):
     assert data["title"] == payload["title"]
     assert data["body"] == payload["body"]
     assert data["userId"] == payload["userId"]
+
+def test_patch_post(api_client):
+    payload = {
+        "title": "Updated through PATCH",
+        "username": "Wiserenegade",
+        'company': {'name': 'We Work', 'catchPhrase': 'Multi-layered client-server neural-net', 'bs': 'harness real-time e-markets'}
+    }
+
+    api_response =api_client.get("/users/1")
+
+    print(api_response.json())
+
+    print("***************************************************")
+
+    api_patch_response = api_client.patch("/users/1",payload)
+
+    print(api_patch_response.json())

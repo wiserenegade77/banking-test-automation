@@ -33,6 +33,15 @@ class APIClient:
             timeout=self.timeout
             )
 
+    def patch(self,endpoint,payload):
+        url = f"{self.base_url}/{endpoint.lstrip('/')}"
+
+        return self.session.patch(
+            url,
+            json = payload,
+            timeout = self.timeout
+        )
+
 
     def close(self):
         self.session.close()
