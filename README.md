@@ -1,2 +1,2 @@
-# python-api-automation-framework
-Python REST API automation framework using Pytest, Requests, and CI/CD
+# banking-test-automation
+Python REST API automation testing using Pytest
